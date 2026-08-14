@@ -26,7 +26,9 @@ or Arduino IDE: install the ESP8266 board package, select *LOLIN(WEMOS) D1
 mini*, Upload Speed 115200, upload `src/rotary_bmi160.ino`.
 
 The sketch talks to the BMI160 over raw I2C registers (no libraries needed). If
-`ERR BMI160 not found` appears, check wiring/address (auto-detects `0x68`/`0x69`).
+`ERR BMI160 not found` appears (printed every ~5 s), check wiring/address
+(auto-detects `0x68`/`0x69`). The firmware auto-recovers: once the sensor is
+reconnected it starts streaming again without re-flashing.
 
 ## USB driver
 

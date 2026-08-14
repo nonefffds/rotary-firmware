@@ -53,3 +53,8 @@ license for its terms.
   informational.
 
 The built-in LED blinks once on each orientation change.
+
+## Case
+
+For casing, I recommend you to find compatible case from : https://docs.slimevr.dev/diy/cases.html
+This project is a side project of utilizing my spare SlimeVR parts, but without battery parts. I personally used this one: https://www.printables.com/model/647109-minted-arcturus-slimevr-diy-standard-parts

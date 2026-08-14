@@ -85,6 +85,8 @@ int angle_to_state(float deg) {
 
 int state = -1;
 unsigned long last_beat = 0;
+unsigned long last_err = 0;
+bool sensor_ok = false;
 
 void setup() {
   Serial.begin(115200);
@@ -95,18 +97,37 @@ void setup() {
   delay(50);
   Serial.println("READY");
 
-  if (!init_bmi160()) {
+  sensor_ok = init_bmi160();
+  if (sensor_ok) {
+    Serial.print("OK BMI160 addr=0x");
+    Serial.println(dev_addr, HEX);
+  } else {
     Serial.println("ERR BMI160 not found (check wiring: D1->SCL, D2->SDA, VCC/GND)");
-    while (1) delay(1000);
   }
-  Serial.print("OK BMI160 addr=0x");
-  Serial.println(dev_addr, HEX);
 }
 
 void loop() {
+  if (!sensor_ok) {
+    // auto-recover: retry periodically so reconnecting the sensor works without re-flashing
+    sensor_ok = init_bmi160();
+    if (sensor_ok) {
+      Serial.print("OK BMI160 recovered addr=0x");
+      Serial.println(dev_addr, HEX);
+    } else {
+      unsigned long now = millis();
+      if (now - last_err > 5000) {
+        last_err = now;
+        Serial.println("ERR BMI160 not found (check wiring: D1->SCL, D2->SDA, VCC/GND)");
+      }
+      delay(500);
+      return;
+    }
+  }
+
   float ax, ay, az;
   if (!read_accel_g(ax, ay, az)) {
-    delay(50);
+    sensor_ok = false;
+    delay(200);
     return;
   }
 

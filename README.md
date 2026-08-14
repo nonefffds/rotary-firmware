@@ -34,6 +34,13 @@ The D1 Mini clone uses a CH340 USB-serial chip. If Windows shows it as an
 "unknown device" instead of a COM port, install the CH340/CH341 driver:
 <https://www.wch.cn/downloads/CH341SER_EXE.html>
 
+## License
+
+This project is MIT licensed (see LICENSE). It is built with the ESP8266
+Arduino core, which is licensed under the GNU LGPL v2.1
+(<https://github.com/esp8266/Arduino/blob/master/LICENSE.rst>); see the core's
+license for its terms.
+
 ## Serial protocol (115200 baud)
 
 - `A=<deg> <ax> <ay> <az>` — live angle (~6×/s) where 0° = upright, +90° =

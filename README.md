@@ -28,6 +28,12 @@ mini*, Upload Speed 115200, upload `src/rotary_bmi160.ino`.
 The sketch talks to the BMI160 over raw I2C registers (no libraries needed). If
 `ERR BMI160 not found` appears, check wiring/address (auto-detects `0x68`/`0x69`).
 
+## USB driver
+
+The D1 Mini clone uses a CH340 USB-serial chip. If Windows shows it as an
+"unknown device" instead of a COM port, install the CH340/CH341 driver:
+<https://www.wch.cn/downloads/CH341SER_EXE.html>
+
 ## Serial protocol (115200 baud)
 
 - `A=<deg> <ax> <ay> <az>` — live angle (~6×/s) where 0° = upright, +90° =
